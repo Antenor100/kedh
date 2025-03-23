@@ -1,0 +1,63 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Kedh",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/kedh-dev",
+        "args": [],
+        "stopAtEntry": true,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      },
+      {
+        "name": "Debug Kedh -c",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/kedh-dev",
+        "args": ["-c"],
+        "stopAtEntry": true,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      },
+      {
+        "name": "Debug Kedh -h",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/kedh-dev",
+        "args": ["-h"],
+        "stopAtEntry": true,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      }
+    ]
+  }
+  
