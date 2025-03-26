@@ -18,7 +18,7 @@ SOURCES = $(SRC_DIR)/main.c \
 					$(ENUMS_DIR)/key_names.c
 
 
-TARGET = build/kedh-v1.1.1
+TARGET = build/kedh
 
 all: $(TARGET)
 
@@ -54,6 +54,20 @@ test-c:
 
 	@echo "\nRunning aplication...\n"
 	./$(TARGET) -c
+	@echo "\nRunning - Done."
+
+test-n:
+	clear
+	@echo "\nCleaning up..."
+	@make clean
+	@echo "Cleaning - Done."
+
+	@echo "\nCompiling..."
+	@make
+	@echo "Compiling - Done."
+
+	@echo "\nRunning aplication...\n"
+	./$(TARGET) -n "Compx 2.4G Wireless Receiver"
 	@echo "\nRunning - Done."
 
 test-h:

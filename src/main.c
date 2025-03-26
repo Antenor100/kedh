@@ -101,12 +101,40 @@ int main(int argc, char *argv[]) {
                 fprintf(stderr, "Failed to start key monitoring service.\n");
                 return 1;
             }
+        } else if (strcmp(argv[1], "-n") == 0) {
+            if (argc < 3) {
+                fprintf(stderr, "Error: Device name required with -n option.\n");
+                return 1;
+            }
+
+            // Concatenate all arguments after -n into a single device name
+            char device_name[G_MAX_PATH_LENGTH] = {0};
+            for (int i = 2; i < argc; i++) {
+                if (strlen(device_name) + strlen(argv[i]) + 2 < G_MAX_PATH_LENGTH) {
+                    if (device_name[0] != '\0') {
+                        strcat(device_name, " ");
+                    }
+                    strcat(device_name, argv[i]);
+                }
+            }
+
+            char selected_device[G_MAX_PATH_LENGTH];
+            if (!find_keyboard_device_by_name(device_name, selected_device)) {
+                fprintf(stderr, "Failed to find keyboard device with name '%s'.\n", device_name);
+                return 1;
+            }
+
+            if (key_monitor_service_init(key_event_handler) != 0) {
+                fprintf(stderr, "Failed to start key monitoring service.\n");
+                return 1;
+            }
         } else if (strcmp(argv[1], "-h") == 0) {
-            printf("Usage: kedh-dev [-c] [-h] [-t] [-v]\n");
+            printf("Usage: kedh-dev [-c] [-n NAME] [-h] [-t] [-v]\n");
             printf("Options:\n");
             printf("  No params     Start key monitor and run indefinitely\n");
-            printf("  -c            Choose an event device and start key "
-                   "monitor\n");
+            printf("  -c            Choose an event device by index and start key "
+                   "monitor (saves KEYBOARD_DEVICE_INDEX)\n");
+            printf("  -n NAME       Choose a keyboard device by its name (saves KEYBOARD_DEVICE_NAME)\n");
             printf("  -t            Start in test mode (exit on ESC)\n");
             printf("  -v            Enable verbose logging\n");
             printf("  -h            Show this help message\n");

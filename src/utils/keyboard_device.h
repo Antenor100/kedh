@@ -15,4 +15,6 @@ int list_keyboard_devices(char devices[][G_MAX_PATH_LENGTH]);
 
 int read_configured_keyboard_device(char *device_path, size_t path_size);
 
+int find_keyboard_device_by_name(const char *device_name, char *selected_device);
+
 #endif

@@ -41,6 +41,10 @@ The folder needs to be created manually on your HOME, and the configuration file
     ```
     ./kedh -c
     ```
+   If you prefer and your devices index always changes, you can use the `-n` option to choose the device by name:
+    ```
+    ./kedh -n "Your Keyboard Name"
+    ```
 
 5. After first run, you can start the program without any options:
     ```
