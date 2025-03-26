@@ -18,7 +18,7 @@ SOURCES = $(SRC_DIR)/main.c \
 					$(ENUMS_DIR)/key_names.c
 
 
-TARGET = build/kedh
+TARGET = build/kedh-v1.1.2
 
 all: $(TARGET)
 
