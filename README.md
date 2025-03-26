@@ -29,14 +29,23 @@ The folder needs to be created manually on your HOME, and the configuration file
 &nbsp;
 ## Usage
 1. Clone the repository, the program is located in the `/build` folder:
-1. Edit the keybinds file at `~/.kedh/.keybinds` (see below)
-2. On the first run, you will be prompted to select the keyboard device. You can also specify the device directly using the `-c` option. After choosing the device, the program will start monitoring key events.
+
+2. Edit the keybinds file at `~/.kedh/.keybinds` (see below)
+
+3. Install `evtest` and `libevdev-dev` if not already installed:
+   ```bash
+   sudo apt-get install evtest
+   sudo apt-get install libevdev-dev
+   ```
+
+4. On the first run, you will be prompted to select the keyboard device. You can also specify the device directly using the `-c` option. After choosing the device, the program will start monitoring key events.
     ```
     ./kedh -c
     ```
-3. After first run, you can start the program without any options:
+
+5. After first run, you can start the program without any options:
     ```
-    ./kedh-dev
+    ./kedh
     ```
 
 &nbsp;
@@ -88,7 +97,7 @@ F3 = firefox
 ## Command Line Options
 
 ```
-./kedh-dev [-c] [-h] [-t] [-v]
+./kedh [-c] [-h] [-t] [-v]
 
 Options:
   No params     Start key monitor and run indefinitely
@@ -106,8 +115,7 @@ To find the correct keyboard device for KEDH, you can use `evtest`:
 
 1. Install evtest if not already installed:
    ```bash
-   sudo apt-get install evtest  # For Debian/Ubuntu
-   sudo dnf install evtest      # For Fedora
+   sudo apt-get install evtest
    ```
 
 2. List all input devices:
@@ -121,7 +129,7 @@ To find the correct keyboard device for KEDH, you can use `evtest`:
 
 4. Select the correct device path (e.g., `/dev/input/eventX`)
 
-5. When running `./kedh-dev -c`, choose the device path you identified
+5. When running `./kedh -c`, choose the device path you identified
 
 &nbsp;
 ## Notes
@@ -131,6 +139,7 @@ To find the correct keyboard device for KEDH, you can use `evtest`:
 - The program can be terminated by pressing Ctrl+C
 - With `-t`, the program exits when ESC is pressed
 - After change in the keybinds file, restart the program to apply changes
+- If shortcut conflicts with Linux generals happen, please disable what was configured in the system, this probably goes on writing what is in Kedh
 
 &nbsp;
 ## Building
