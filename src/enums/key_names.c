@@ -1,5 +1,6 @@
 #include "key_names.h"
 #include <string.h>
+#include <ctype.h>
 
 const char* key_name_to_string(KeyName key) {
     switch (key) {
@@ -73,6 +74,24 @@ const char* key_name_to_string(KeyName key) {
         case KEY_NAME_LEFT_ALT: return "LEFT_ALT";
         case KEY_NAME_RIGHT_ALT: return "RIGHT_ALT";
 
+        // Super/Windows keys
+        case KEY_NAME_LEFT_SUPER: return "LEFT_SUPER";
+        case KEY_NAME_RIGHT_SUPER: return "RIGHT_SUPER";
+
+        // Additional special characters
+        case KEY_NAME_SLASH: return "/";
+        case KEY_NAME_ASTERISK: return "*";
+        case KEY_NAME_MINUS: return "-";
+        case KEY_NAME_PLUS: return "+";
+        case KEY_NAME_BACKTICK: return "`";
+        case KEY_NAME_BACKSLASH: return "\\";
+        case KEY_NAME_LEFTSQUAREBRACKET: return "[";
+        case KEY_NAME_RIGHTSQUAREBRACKET: return "]";
+        case KEY_NAME_SEMICOLON: return ";";
+        case KEY_NAME_COMMA: return ",";
+        case KEY_NAME_DOT: return ".";
+        case KEY_NAME_EQUALS: return "=";
+
         // Unknown key
         default: return "UNKNOWN";
     }
@@ -81,47 +100,35 @@ const char* key_name_to_string(KeyName key) {
 KeyName string_to_key_name(const char *key_str) {
     if (!key_str) return KEY_NAME_UNKNOWN;
 
-    // Alphabet keys
-    if (strcmp(key_str, "A") == 0) return KEY_NAME_A;
-    if (strcmp(key_str, "B") == 0) return KEY_NAME_B;
-    if (strcmp(key_str, "C") == 0) return KEY_NAME_C;
-    if (strcmp(key_str, "D") == 0) return KEY_NAME_D;
-    if (strcmp(key_str, "E") == 0) return KEY_NAME_E;
-    if (strcmp(key_str, "F") == 0) return KEY_NAME_F;
-    if (strcmp(key_str, "G") == 0) return KEY_NAME_G;
-    if (strcmp(key_str, "H") == 0) return KEY_NAME_H;
-    if (strcmp(key_str, "I") == 0) return KEY_NAME_I;
-    if (strcmp(key_str, "J") == 0) return KEY_NAME_J;
-    if (strcmp(key_str, "K") == 0) return KEY_NAME_K;
-    if (strcmp(key_str, "L") == 0) return KEY_NAME_L;
-    if (strcmp(key_str, "M") == 0) return KEY_NAME_M;
-    if (strcmp(key_str, "N") == 0) return KEY_NAME_N;
-    if (strcmp(key_str, "O") == 0) return KEY_NAME_O;
-    if (strcmp(key_str, "P") == 0) return KEY_NAME_P;
-    if (strcmp(key_str, "Q") == 0) return KEY_NAME_Q;
-    if (strcmp(key_str, "R") == 0) return KEY_NAME_R;
-    if (strcmp(key_str, "S") == 0) return KEY_NAME_S;
-    if (strcmp(key_str, "T") == 0) return KEY_NAME_T;
-    if (strcmp(key_str, "U") == 0) return KEY_NAME_U;
-    if (strcmp(key_str, "V") == 0) return KEY_NAME_V;
-    if (strcmp(key_str, "W") == 0) return KEY_NAME_W;
-    if (strcmp(key_str, "X") == 0) return KEY_NAME_X;
-    if (strcmp(key_str, "Y") == 0) return KEY_NAME_Y;
-    if (strcmp(key_str, "Z") == 0) return KEY_NAME_Z;
+    // Single character keys
+    if (strlen(key_str) == 1) {
+        char key = key_str[0];
 
-    // Number keys
-    if (strcmp(key_str, "0") == 0) return KEY_NAME_0;
-    if (strcmp(key_str, "1") == 0) return KEY_NAME_1;
-    if (strcmp(key_str, "2") == 0) return KEY_NAME_2;
-    if (strcmp(key_str, "3") == 0) return KEY_NAME_3;
-    if (strcmp(key_str, "4") == 0) return KEY_NAME_4;
-    if (strcmp(key_str, "5") == 0) return KEY_NAME_5;
-    if (strcmp(key_str, "6") == 0) return KEY_NAME_6;
-    if (strcmp(key_str, "7") == 0) return KEY_NAME_7;
-    if (strcmp(key_str, "8") == 0) return KEY_NAME_8;
-    if (strcmp(key_str, "9") == 0) return KEY_NAME_9;
+        // Alphabet keys
+        if (key >= 'A' && key <= 'Z') return (KeyName)(KEY_NAME_A + (key - 'A'));
+        if (key >= 'a' && key <= 'z') return (KeyName)(KEY_NAME_A + (key - 'a'));
 
-    // Special keys
+        // Number keys
+        if (key >= '0' && key <= '9') return (KeyName)(KEY_NAME_0 + (key - '0'));
+
+        // Special characters
+        switch (key) {
+            case '/': return KEY_NAME_SLASH;
+            case '*': return KEY_NAME_ASTERISK;
+            case '-': return KEY_NAME_MINUS;
+            case '+': return KEY_NAME_PLUS;
+            case '`': return KEY_NAME_BACKTICK;
+            case '\\': return KEY_NAME_BACKSLASH;
+            case '[': return KEY_NAME_LEFTSQUAREBRACKET;
+            case ']': return KEY_NAME_RIGHTSQUAREBRACKET;
+            case ';': return KEY_NAME_SEMICOLON;
+            case ',': return KEY_NAME_COMMA;
+            case '.': return KEY_NAME_DOT;
+            case '=': return KEY_NAME_EQUALS;
+        }
+    }
+
+    // Named keys
     if (strcmp(key_str, "SPACE") == 0) return KEY_NAME_SPACE;
     if (strcmp(key_str, "ENTER") == 0) return KEY_NAME_ENTER;
     if (strcmp(key_str, "BACKSPACE") == 0) return KEY_NAME_BACKSPACE;
@@ -150,6 +157,10 @@ KeyName string_to_key_name(const char *key_str) {
     if (strcmp(key_str, "RIGHT_CTRL") == 0) return KEY_NAME_RIGHT_CTRL;
     if (strcmp(key_str, "LEFT_ALT") == 0) return KEY_NAME_LEFT_ALT;
     if (strcmp(key_str, "RIGHT_ALT") == 0) return KEY_NAME_RIGHT_ALT;
+
+    // Super/Windows keys
+    if (strcmp(key_str, "LEFT_SUPER") == 0) return KEY_NAME_LEFT_SUPER;
+    if (strcmp(key_str, "RIGHT_SUPER") == 0) return KEY_NAME_RIGHT_SUPER;
 
     return KEY_NAME_UNKNOWN;
 }

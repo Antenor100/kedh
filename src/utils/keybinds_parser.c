@@ -66,6 +66,7 @@ int load_keybinds_config(const char *keybinds_path, KeybindsConfig *config) {
             if (strcmp(key_token, "ALT") == 0) key_token = "LEFT_ALT";
             if (strcmp(key_token, "SHIFT") == 0) key_token = "LEFT_SHIFT";
             if (strcmp(key_token, "PRINTSCREEN") == 0) key_token = "PRINT";
+            if (strcmp(key_token, "SUPER") == 0) key_token = "LEFT_SUPER";
 
             KeyName key = string_to_key_name(key_token);
             if (key != KEY_NAME_UNKNOWN) {

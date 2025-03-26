@@ -32,9 +32,8 @@ The folder needs to be created manually on your HOME, and the configuration file
 
 2. Edit the keybinds file at `~/.kedh/.keybinds` (see below)
 
-3. Install `evtest` and `libevdev-dev` if not already installed:
+3. Install `libevdev-dev` if not already installed:
    ```bash
-   sudo apt-get install evtest
    sudo apt-get install libevdev-dev
    ```
 
@@ -62,9 +61,11 @@ key1+key2+key3 = command_to_execute
 #### Supported Keys
 - Alphabet keys: A-Z
 - Number keys: 0-9
-- Special keys: SPACE, ENTER, ESC, PRINT, BACKSPACE, TAB
+- Special keys: SPACE, ENTER, ESC, PRINT, BACKSPACE, TAB, SUPER, RIGHT_SUPER
+- Special characters: / * - + ` \\ [ ] ; , . =
 - Function keys: F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12
 - Modifier keys: SHIFT, RIGHT_SHIFT, CTRL, RIGHT_CTRL, ALT, RIGHT_ALT
+
 
 &nbsp;
 ### Example Configuration
@@ -130,6 +131,17 @@ To find the correct keyboard device for KEDH, you can use `evtest`:
 4. Select the correct device path (e.g., `/dev/input/eventX`)
 
 5. When running `./kedh -c`, choose the device path you identified
+
+&nbsp;
+## Setting KEDH to init on Linux Mint Startup
+1. Open the "Startup Applications" tool in Linux Mint.
+2. Click "Add" to create a new startup entry.
+3. In the "Name" field, enter "KEDH".
+4. In the "Command" field, enter the full path to the KEDH executable (e.g., `/path/to/kedh/build/kedh`).
+5. In the "Comment" field, you can enter a description (optional).
+6. Put 5s in the "Delay" field to ensure the program starts after the system is ready.
+7. Click "Add" to save the entry.
+8. Restart your computer to test if KEDH starts automatically.
 
 &nbsp;
 ## Notes
