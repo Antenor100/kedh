@@ -11,7 +11,7 @@
 #include <pthread.h>
 #include <sys/time.h>
 
-#define COMMAND_TIMEOUT_SECONDS 5
+#define COMMAND_TIMEOUT_SECONDS 1
 
 static KeybindsConfig g_keybinds_config = {0};
 
