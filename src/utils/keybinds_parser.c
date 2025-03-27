@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Convert string to uppercase for case-insensitive comparison
 void to_uppercase(char *str) {
     for (int i = 0; str[i]; i++) {
         str[i] = toupper(str[i]);
@@ -56,12 +55,9 @@ int load_keybinds_config(const char *keybinds_path, KeybindsConfig *config) {
 
         char *key_token = strtok(line_copy, "+");
 
-        while (key_token &&
-               current_bind->key_count < MAX_KEY_COMBINATION_LENGTH) {
-            // Convert to uppercase for case-insensitive matching
+        while (key_token && current_bind->key_count < MAX_KEY_COMBINATION_LENGTH) {
             to_uppercase(key_token);
 
-            // Normalize some common key names
             if (strcmp(key_token, "CTRL") == 0) key_token = "LEFT_CTRL";
             if (strcmp(key_token, "ALT") == 0) key_token = "LEFT_ALT";
             if (strcmp(key_token, "SHIFT") == 0) key_token = "LEFT_SHIFT";

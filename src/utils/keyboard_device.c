@@ -55,7 +55,6 @@ int read_configured_keyboard_device(char *device_path, size_t path_size) {
         return 0;
     }
 
-    // Try to find by index first
     if (device_index && *device_index) {
         int index = atoi(device_index);
         if (index > 0 && index <= device_count) {
@@ -64,7 +63,6 @@ int read_configured_keyboard_device(char *device_path, size_t path_size) {
         }
     }
 
-    // Then try to find by name
     if (device_name && *device_name) {
         struct libevdev *dev = NULL;
         int fd;
@@ -114,7 +112,21 @@ int choose_keyboard_device(char *selected_device) {
 
     printf("Available Keyboard Devices:\n");
     for (int i = 0; i < device_count; i++) {
-        printf("%d: %s\n", i + 1, devices[i]);
+        struct libevdev *dev = NULL;
+        int fd = open(devices[i], O_RDONLY);
+        if (fd < 0) continue;
+
+        int rc = libevdev_new_from_fd(fd, &dev);
+        if (rc < 0) {
+            close(fd);
+            continue;
+        }
+
+        const char *name = libevdev_get_name(dev);
+        printf("%d: %s (%s)\n", i + 1, name ? name : "Unknown", devices[i]);
+
+        libevdev_free(dev);
+        close(fd);
     }
 
     int choice;
@@ -127,7 +139,6 @@ int choose_keyboard_device(char *selected_device) {
 
     strncpy(selected_device, devices[choice - 1], G_MAX_PATH_LENGTH);
 
-    // Save device index and clear name
     char index_str[16];
     snprintf(index_str, sizeof(index_str), "%d", choice);
 
@@ -136,7 +147,6 @@ int choose_keyboard_device(char *selected_device) {
         return 0;
     }
 
-    // Clear the name property
     save_property("KEYBOARD_DEVICE_NAME", "");
 
     printf("Device saved as default.\n");
@@ -169,19 +179,18 @@ int find_keyboard_device_by_name(const char *device_name,
         }
 
         const char *name = libevdev_get_name(dev);
+        
         if (name && strcmp(name, device_name) == 0) {
-            strncpy(selected_device, devices[i], G_MAX_PATH_LENGTH);
+            strncpy(selected_device, name, G_MAX_PATH_LENGTH);
 
             libevdev_free(dev);
             close(fd);
 
-            // Save device name and clear index
             if (!save_property("KEYBOARD_DEVICE_NAME", device_name)) {
                 printf("Could not save device name configuration.\n");
                 return 0;
             }
 
-            // Clear the index property
             save_property("KEYBOARD_DEVICE_INDEX", "");
 
             printf("Device '%s' found and saved as default.\n", device_name);

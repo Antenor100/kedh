@@ -13,6 +13,7 @@ SOURCES = $(SRC_DIR)/main.c \
 					$(UTILS_DIR)/keyboard_device.c \
 					$(UTILS_DIR)/config_properties.c \
 					$(UTILS_DIR)/keybinds_parser.c \
+					$(UTILS_DIR)/array_utils.c \
 					$(SERVICES_DIR)/key_monitor_service.c \
 					$(SERVICES_DIR)/keybind_command_service.c \
 					$(ENUMS_DIR)/key_names.c
@@ -110,4 +111,32 @@ test-v:
 
 	@echo "\nRunning aplication...\n"
 	./$(TARGET) -v
+	@echo "\nRunning - Done."
+
+test-s:
+	clear
+	@echo "\nCleaning up..."
+	@make clean
+	@echo "Cleaning - Done."
+
+	@echo "\nCompiling..."
+	@make
+	@echo "Compiling - Done."
+
+	@echo "\nRunning aplication...\n"
+	./$(TARGET) -s
+	@echo "\nRunning - Done."
+
+test-k:
+	clear
+	@echo "\nCleaning up..."
+	@make clean
+	@echo "Cleaning - Done."
+
+	@echo "\nCompiling..."
+	@make
+	@echo "Compiling - Done."
+
+	@echo "\nRunning aplication...\n"
+	./$(TARGET) -k
 	@echo "\nRunning - Done."

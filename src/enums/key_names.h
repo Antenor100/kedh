@@ -99,4 +99,4 @@ typedef enum {
 const char* key_name_to_string(KeyName key);
 KeyName string_to_key_name(const char *key_str);
 
-#endif // KEY_NAMES_H
+#endif

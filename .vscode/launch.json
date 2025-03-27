@@ -5,7 +5,7 @@
         "name": "Debug Kedh",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/build/kedh-dev",
+        "program": "${workspaceFolder}/build/kedh",
         "args": [],
         "stopAtEntry": true,
         "cwd": "${workspaceFolder}",
@@ -24,7 +24,7 @@
         "name": "Debug Kedh -c",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/build/kedh-dev",
+        "program": "${workspaceFolder}/build/kedh",
         "args": ["-c"],
         "stopAtEntry": true,
         "cwd": "${workspaceFolder}",
@@ -43,8 +43,27 @@
         "name": "Debug Kedh -h",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/build/kedh-dev",
+        "program": "${workspaceFolder}/build/kedh",
         "args": ["-h"],
+        "stopAtEntry": true,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      },
+      {
+        "name": "Debug Kedh -s -n",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/kedh",
+        "args": ["-s", "-n", "CX 2.4G Wireless Receiver"],
         "stopAtEntry": true,
         "cwd": "${workspaceFolder}",
         "environment": [],

@@ -51,6 +51,10 @@ The folder needs to be created manually on your HOME, and the configuration file
     ./kedh
     ```
 
+6. If you want to run the program in the background, use the `-s` option:
+    ```
+    ./kedh -s
+    ```
 &nbsp;
 ## .keybinds File Format
 
@@ -110,6 +114,9 @@ Options:
   -t            Start in test mode, with logs (exit on ESC)
   -v            Show version information
   -h            Show help message
+  -n "name"     Choose an event device by name
+  -s            Start kedh in the background (standalone mode)
+  -k            Kill the running kedh processes
 ```
 
 
@@ -147,7 +154,7 @@ To find the correct keyboard device for KEDH, you can use `evtest`:
    ```bash
    sudo chmod +x /usr/local/bin/kedh
    ```
-   
+
 3. Now you can run KEDH from anywhere in the terminal by simply typing `kedh`.
 
 &nbsp;
