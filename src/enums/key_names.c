@@ -105,8 +105,68 @@ KeyName string_to_key_name(const char *key_str) {
         char key = key_str[0];
 
         // Alphabet keys
-        if (key >= 'A' && key <= 'Z') return (KeyName)(KEY_NAME_A + (key - 'A'));
-        if (key >= 'a' && key <= 'z') return (KeyName)(KEY_NAME_A + (key - 'a'));
+        if (key >= 'A' && key <= 'Z') {
+            switch (key) {
+                case 'A': return KEY_NAME_A;
+                case 'B': return KEY_NAME_B;
+                case 'C': return KEY_NAME_C;
+                case 'D': return KEY_NAME_D;
+                case 'E': return KEY_NAME_E;
+                case 'F': return KEY_NAME_F;
+                case 'G': return KEY_NAME_G;
+                case 'H': return KEY_NAME_H;
+                case 'I': return KEY_NAME_I;
+                case 'J': return KEY_NAME_J;
+                case 'K': return KEY_NAME_K;
+                case 'L': return KEY_NAME_L;
+                case 'M': return KEY_NAME_M;
+                case 'N': return KEY_NAME_N;
+                case 'O': return KEY_NAME_O;
+                case 'P': return KEY_NAME_P;
+                case 'Q': return KEY_NAME_Q;
+                case 'R': return KEY_NAME_R;
+                case 'S': return KEY_NAME_S;
+                case 'T': return KEY_NAME_T;
+                case 'U': return KEY_NAME_U;
+                case 'V': return KEY_NAME_V;
+                case 'W': return KEY_NAME_W;
+                case 'X': return KEY_NAME_X;
+                case 'Y': return KEY_NAME_Y;
+                case 'Z': return KEY_NAME_Z;
+                default: return KEY_NAME_UNKNOWN;
+            }
+        }
+        if (key >= 'a' && key <= 'z') {
+            switch (key) {
+                case 'a': return KEY_NAME_A;
+                case 'b': return KEY_NAME_B;
+                case 'c': return KEY_NAME_C;
+                case 'd': return KEY_NAME_D;
+                case 'e': return KEY_NAME_E;
+                case 'f': return KEY_NAME_F;
+                case 'g': return KEY_NAME_G;
+                case 'h': return KEY_NAME_H;
+                case 'i': return KEY_NAME_I;
+                case 'j': return KEY_NAME_J;
+                case 'k': return KEY_NAME_K;
+                case 'l': return KEY_NAME_L;
+                case 'm': return KEY_NAME_M;
+                case 'n': return KEY_NAME_N;
+                case 'o': return KEY_NAME_O;
+                case 'p': return KEY_NAME_P;
+                case 'q': return KEY_NAME_Q;
+                case 'r': return KEY_NAME_R;
+                case 's': return KEY_NAME_S;
+                case 't': return KEY_NAME_T;
+                case 'u': return KEY_NAME_U;
+                case 'v': return KEY_NAME_V;
+                case 'w': return KEY_NAME_W;
+                case 'x': return KEY_NAME_X;
+                case 'y': return KEY_NAME_Y;
+                case 'z': return KEY_NAME_Z;
+                default: return KEY_NAME_UNKNOWN;
+            }
+        }
 
         // Number keys
         if (key >= '0' && key <= '9') return (KeyName)(KEY_NAME_0 + (key - '0'));

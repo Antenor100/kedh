@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include "keybind_command_service.h"
 #include "../utils/keybinds_parser.h"
 #include <errno.h>
@@ -17,6 +18,9 @@ static KeybindsConfig g_keybinds_config = {0};
 typedef struct {
     char command[MAX_COMMAND_LENGTH];
     int result;
+    pthread_mutex_t mutex;
+    pthread_cond_t cond;
+    int completed;
 } CommandExecutionContext;
 
 static void *execute_command_thread(void *arg) {
@@ -25,13 +29,17 @@ static void *execute_command_thread(void *arg) {
     pid_t pid = fork();
     
     if (pid == -1) {
+        pthread_mutex_lock(&context->mutex);
         context->result = -1;
+        context->completed = 1;
+        pthread_cond_signal(&context->cond);
+        pthread_mutex_unlock(&context->mutex);
         return NULL;
     }
     
     if (pid == 0) {
         execl("/bin/sh", "sh", "-c", context->command, NULL);
-        
+
         fprintf(stderr, "Failed to execute command: %s\n", context->command);
         exit(1);
     }
@@ -39,7 +47,12 @@ static void *execute_command_thread(void *arg) {
     int status;
     waitpid(pid, &status, 0);
     
+    pthread_mutex_lock(&context->mutex);
     context->result = (WIFEXITED(status) && WEXITSTATUS(status) == 0) ? 0 : -1;
+    context->completed = 1;
+    pthread_cond_signal(&context->cond);
+    pthread_mutex_unlock(&context->mutex);
+    
     return NULL;
 }
 
@@ -48,30 +61,45 @@ int execute_keybind_command(KeybindConfig *keybind) {
         return -1;
     }
     
-    CommandExecutionContext context;
+    CommandExecutionContext context = {0};
     strncpy(context.command, keybind->command, MAX_COMMAND_LENGTH - 1);
     context.command[MAX_COMMAND_LENGTH - 1] = '\0';
     context.result = -1;
+    context.completed = 0;
+    
+    pthread_mutex_init(&context.mutex, NULL);
+    pthread_cond_init(&context.cond, NULL);
     
     pthread_t thread;
     if (pthread_create(&thread, NULL, execute_command_thread, &context) != 0) {
         fprintf(stderr, "Failed to create thread for command execution\n");
+        pthread_mutex_destroy(&context.mutex);
+        pthread_cond_destroy(&context.cond);
         return -1;
     }
     
-    struct timespec timeout = {
-        .tv_sec = COMMAND_TIMEOUT_SECONDS,
-        .tv_nsec = 0
-    };
+    struct timespec timeout;
+    clock_gettime(CLOCK_REALTIME, &timeout);
+    timeout.tv_sec += COMMAND_TIMEOUT_SECONDS;
     
-    void *thread_result;
-    int pthread_join_result = pthread_timedjoin_np(thread, &thread_result, &timeout);
+    pthread_mutex_lock(&context.mutex);
+    int wait_result = 0;
+    while (!context.completed && wait_result == 0) {
+        wait_result = pthread_cond_timedwait(&context.cond, &context.mutex, &timeout);
+    }
     
-    if (pthread_join_result == ETIMEDOUT) {
+    if (wait_result != 0) {
         pthread_cancel(thread);
-        fprintf(stderr, "Command timed out: %s\n", context.command);
-        return -1;
+        context.result = -1;
+        fprintf(stderr, "Command timed out or failed: %s\n", context.command);
     }
+    
+    pthread_mutex_unlock(&context.mutex);
+    
+    pthread_join(thread, NULL);
+    
+    pthread_mutex_destroy(&context.mutex);
+    pthread_cond_destroy(&context.cond);
     
     return context.result;
 }

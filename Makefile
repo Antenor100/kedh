@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g 
+CFLAGS = -Wall -Wextra -g
 LDFLAGS = -lpthread -levdev
 
 # Source directories
@@ -19,7 +19,7 @@ SOURCES = $(SRC_DIR)/main.c \
 					$(ENUMS_DIR)/key_names.c
 
 
-TARGET = build/kedh
+TARGET = build/kedh-v1.1.3
 
 all: $(TARGET)
 
