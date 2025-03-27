@@ -7,7 +7,7 @@
 #include <libevdev-1.0/libevdev/libevdev.h>
 #include <linux/input.h>
 
-#define MAX_DEVICES (read_int_property("MAX_DEVICES", 30))
+#define MAX_DEVICES (read_int_property("MAX_DEVICES", G_MAX_DEVICES))
 
 int choose_keyboard_device(char *selected_device);
 

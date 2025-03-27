@@ -137,6 +137,20 @@ To find the correct keyboard device for KEDH, you can use `evtest`:
 5. When running `./kedh -c`, choose the device path you identified
 
 &nbsp;
+## How to make a command shortcut for kedh (call it from anywhere, symbolic link)
+1. Create a symbolic link to the KEDH executable in a directory that is in your PATH (e.g., `/usr/local/bin`):
+   ```bash
+   sudo ln -s /path/to/kedh/build/kedh /usr/local/bin/kedh
+   ```
+
+2. Make sure the symbolic link is executable:
+   ```bash
+   sudo chmod +x /usr/local/bin/kedh
+   ```
+   
+3. Now you can run KEDH from anywhere in the terminal by simply typing `kedh`.
+
+&nbsp;
 ## Setting KEDH to init on Linux Mint Startup
 1. Open the "Startup Applications" tool in Linux Mint.
 2. Click "Add" to create a new startup entry.
