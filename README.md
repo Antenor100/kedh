@@ -103,6 +103,29 @@ F3 = firefox
 ```
 
 &nbsp;
+### Creating Macros with xvkbd
+
+While KEDH binds key combinations to *shell commands*, you might want to bind keys to insert specific text snippets (macros). A useful tool for this is `xvkbd`. You can bind a KEDH shortcut to an `xvkbd` command.
+
+`xvkbd` allows you to simulate keyboard input, including special characters. You need to escape characters that have special meaning in the shell or `xvkbd` itself using a backslash (`\`).
+
+**Example:**
+
+To make a KEDH shortcut that types "Olá, quem é você?", you would add this line to your `~/.kedh/.keybinds` file:
+
+```
+# Example: Bind CTRL+ALT+T to type a specific phrase
+CTRL+ALT+T = xvkbd -text 'Ol\{aacute}, quem \{eacute} voc\{ecircumflex}?'
+```
+
+This command tells `xvkbd` to type the specified text. Note the backslashes before `{`, `á`, `é`, and `ê` to ensure they are interpreted correctly.
+
+You may need to install `xvkbd` first:
+```bash
+sudo apt-get install xvkbd
+```
+
+&nbsp;
 ## Command Line Options
 
 ```

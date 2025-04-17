@@ -92,6 +92,23 @@ typedef enum {
     KEY_NAME_DOT = KEY_DOT,
     KEY_NAME_EQUALS = KEY_EQUAL,
 
+    // Numpad keys
+    KEY_NAME_KP_0 = KEY_KP0,
+    KEY_NAME_KP_1 = KEY_KP1,
+    KEY_NAME_KP_2 = KEY_KP2,
+    KEY_NAME_KP_3 = KEY_KP3,
+    KEY_NAME_KP_4 = KEY_KP4,
+    KEY_NAME_KP_5 = KEY_KP5,
+    KEY_NAME_KP_6 = KEY_KP6,
+    KEY_NAME_KP_7 = KEY_KP7,
+    KEY_NAME_KP_8 = KEY_KP8,
+    KEY_NAME_KP_9 = KEY_KP9,
+    KEY_NAME_KP_DOT = KEY_KPDOT,
+    KEY_NAME_KP_ENTER = KEY_KPENTER,
+    KEY_NAME_KP_SLASH = KEY_KPSLASH,
+    KEY_NAME_KP_MINUS = KEY_KPMINUS,
+    // KEY_KPASTERISK and KEY_KPPLUS are already defined above
+
     // Unknown key
     KEY_NAME_UNKNOWN = -1
 } KeyName;

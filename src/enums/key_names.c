@@ -92,10 +92,27 @@ const char* key_name_to_string(KeyName key) {
         case KEY_NAME_DOT: return ".";
         case KEY_NAME_EQUALS: return "=";
 
+        // Numpad keys
+        case KEY_NAME_KP_0: return "KP_0";
+        case KEY_NAME_KP_1: return "KP_1";
+        case KEY_NAME_KP_2: return "KP_2";
+        case KEY_NAME_KP_3: return "KP_3";
+        case KEY_NAME_KP_4: return "KP_4";
+        case KEY_NAME_KP_5: return "KP_5";
+        case KEY_NAME_KP_6: return "KP_6";
+        case KEY_NAME_KP_7: return "KP_7";
+        case KEY_NAME_KP_8: return "KP_8";
+        case KEY_NAME_KP_9: return "KP_9";
+        case KEY_NAME_KP_DOT: return "KP_DOT";
+        case KEY_NAME_KP_ENTER: return "KP_ENTER";
+        case KEY_NAME_KP_SLASH: return "KP_SLASH";
+        case KEY_NAME_KP_MINUS: return "KP_MINUS";
+        // Note: KP_ASTERISK and KP_PLUS are handled by '*' and '+' cases above
+    
         // Unknown key
         default: return "UNKNOWN";
+      }
     }
-}
 
 KeyName string_to_key_name(const char *key_str) {
     if (!key_str) return KEY_NAME_UNKNOWN;
@@ -221,6 +238,23 @@ KeyName string_to_key_name(const char *key_str) {
     // Super/Windows keys
     if (strcmp(key_str, "LEFT_SUPER") == 0) return KEY_NAME_LEFT_SUPER;
     if (strcmp(key_str, "RIGHT_SUPER") == 0) return KEY_NAME_RIGHT_SUPER;
-
+  
+    // Numpad keys
+    if (strcmp(key_str, "KP_0") == 0) return KEY_NAME_KP_0;
+    if (strcmp(key_str, "KP_1") == 0) return KEY_NAME_KP_1;
+    if (strcmp(key_str, "KP_2") == 0) return KEY_NAME_KP_2;
+    if (strcmp(key_str, "KP_3") == 0) return KEY_NAME_KP_3;
+    if (strcmp(key_str, "KP_4") == 0) return KEY_NAME_KP_4;
+    if (strcmp(key_str, "KP_5") == 0) return KEY_NAME_KP_5;
+    if (strcmp(key_str, "KP_6") == 0) return KEY_NAME_KP_6;
+    if (strcmp(key_str, "KP_7") == 0) return KEY_NAME_KP_7;
+    if (strcmp(key_str, "KP_8") == 0) return KEY_NAME_KP_8;
+    if (strcmp(key_str, "KP_9") == 0) return KEY_NAME_KP_9;
+    if (strcmp(key_str, "KP_DOT") == 0) return KEY_NAME_KP_DOT;
+    if (strcmp(key_str, "KP_ENTER") == 0) return KEY_NAME_KP_ENTER;
+    if (strcmp(key_str, "KP_SLASH") == 0) return KEY_NAME_KP_SLASH;
+    if (strcmp(key_str, "KP_MINUS") == 0) return KEY_NAME_KP_MINUS;
+    // Note: KP_ASTERISK and KP_PLUS are handled by '*' and '+' cases above
+  
     return KEY_NAME_UNKNOWN;
-}
+  }
