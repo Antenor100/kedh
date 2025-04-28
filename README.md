@@ -38,23 +38,33 @@ The folder needs to be created manually on your HOME, and the configuration file
    ```
 
 4. On the first run, you will be prompted to select the keyboard device. You can also specify the device directly using the `-c` option. After choosing the device, the program will start monitoring key events.
-    ```
-    ./kedh -c
-    ```
+   ```
+   ./kedh -c
+   ```
    If you prefer and your devices index always changes, you can use the `-n` option to choose the device by name:
-    ```
-    ./kedh -n "Your Keyboard Name"
-    ```
+   ```
+   ./kedh -n "Your Keyboard Name"
+   ```
 
 5. After first run, you can start the program without any options:
-    ```
-    ./kedh
-    ```
+   ```
+   ./kedh
+   ```
 
 6. If you want to run the program in the background, use the `-s` option:
-    ```
-    ./kedh -s
-    ```
+   ```
+   ./kedh -s
+   ```
+
+7. For run kedh and find de devices event, follow the steps below:
+   ```
+   sudo nano /etc/udev/rules.d/99-input-permissions.rules
+      - content: KERNEL=="event*", SUBSYSTEM=="input", MODE="0777"
+   sudo udevadm control --reload-rules
+   sudo udevadm trigger
+   ls -l /dev/input/event*
+   ```
+
 &nbsp;
 ## .keybinds File Format
 
